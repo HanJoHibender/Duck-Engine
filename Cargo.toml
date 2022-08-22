@@ -9,7 +9,7 @@ edition = "2021"
 [dependencies]
 winit = "0.26"
 image = "0.23"
-bevy = "0.8"
+# bevy = "0.8"
 # The examples require the validation layers, which means the SDK or
 # equivalent development packages should be present, so we can link
 # directly and benefit from the infallible `Entry` constructor.
