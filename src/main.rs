@@ -1,6 +1,10 @@
-use lib::start_game;
-mod lib;
+use ::duck_window::window::{self, duck_window};
+pub use duck_internal::*;
 
 fn main() {
-    start_game();
+    duck_window::init(&mut self::duck_window {
+        title: "Hello",
+        width: 300,
+        height: 100,
+    });
 }
