@@ -1,0 +1,15 @@
+[package]
+name = "duck_internal"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+duck_audio = { path = "../duck_audio"}
+duck_core = { path = "../duck_core"}
+duck_render = { path = "../duck_render"}
+duck_tester = { path = "../duck_tester"}
+duck_ui = { path = "../duck_ui"}
+duck_window = { path = "../duck_window"}
+duck_world = { path = "../duck_world"}
