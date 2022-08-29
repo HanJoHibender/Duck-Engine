@@ -1,29 +1,8 @@
-[package]
-name = "hello-rust"
+[workspace]
+name = "duck_engine"
 version = "0.1.0"
-authors = ["Sechi <mrsechi@protonmail.com>", "Vrikka <vrikkadev@gmail.com>"]
+#authors = ["Sechi <mrsechi@protonmail.com>", "Vrikka <vrikkadev@gmail.com>"]
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+members = ["Duck-Core", "Duck-Scene", "engine_tester"]
 
-[dependencies]
-winit = "0.26"
-image = "0.23"
-matrix = "0.22.0"
-vulkano = "0.30.0"
-vulkano-win = "0.30.0"
-vulkano-shaders = "0.30.0"
-bytemuck = { version = "1.7", features = ["derive", "extern_crate_std", "min_const_generics"] }
-
-
-#ash = "0.37.0"
-#ash-window = "0.11.0"
-# bevy = "0.8"
-# The examples require the validation layers, which means the SDK or
-# equivalent development packages should be present, so we can link
-# directly and benefit from the infallible `Entry` constructor.
-
-#ash = {path = "./libs/ash/ash", default-features = false, features = ["linked", "debug"] }
-
-#ash = { path = "./libs/ash/ash", default-features = false, features = ["linked", "debug"] }
-#ash-window = { path = "./libs/ash/ash-window" }
