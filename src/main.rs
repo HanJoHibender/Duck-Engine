@@ -1,8 +1,6 @@
-use winit::{
-    event::{Event, WindowEvent},
-    event_loop::{ControlFlow, EventLoop},
-    window::WindowBuilder,
-};
+use lib::start_game;
+mod lib;
+
 fn main() {
-    
+    start_game();
 }
