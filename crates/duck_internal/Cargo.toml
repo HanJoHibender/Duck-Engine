@@ -13,3 +13,4 @@ duck_tester = { path = "../duck_tester"}
 duck_ui = { path = "../duck_ui"}
 duck_window = { path = "../duck_window"}
 duck_world = { path = "../duck_world"}
+bender_window = { path = "../bender_window" }

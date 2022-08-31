@@ -1,14 +1,8 @@
-pub fn add(left: usize, right: usize) -> usize {
-    left + right
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
-    }
-}
+pub use bender_window;
+pub use duck_audio;
+pub use duck_core;
+pub use duck_render;
+pub use duck_tester;
+pub use duck_ui;
+pub use duck_window;
+pub use duck_world;
