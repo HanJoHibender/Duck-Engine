@@ -1,4 +1,4 @@
-use duck_engine::duck_window::window::duck_window;
+use duck_internal::duck_window::window::duck_window;
 
 fn main() {
     duck_window::init(&mut self::duck_window {
