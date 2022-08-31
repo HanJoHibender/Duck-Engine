@@ -1,2 +1,2 @@
-pub struct matrix {}
+pub struct Matrix {}
 pub fn world_gen() {}

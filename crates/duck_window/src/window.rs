@@ -62,6 +62,7 @@ impl duck_window {
 
         let event_loop = EventLoop::new();
         let surface = WindowBuilder::new()
+            .with_resizable(true)
             .build_vk_surface(&event_loop, instance.clone())
             .unwrap();
 
