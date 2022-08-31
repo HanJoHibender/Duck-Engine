@@ -18,5 +18,5 @@ members = [
   ]
 
 [dependencies]
-duck_internal = { path = "./crates/duck_internal"}
-duck_window = { path = "./crates/duck_window"}
+duck_internal = { path = "crates/duck_internal"}
+# duck_window = { path = "./crates/duck_window"}

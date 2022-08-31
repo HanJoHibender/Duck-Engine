@@ -1,8 +1,9 @@
 use winit::{
-    event::{Event, WindowEvent},
+    event::{ElementState, Event, KeyboardInput, VirtualKeyCode, WindowEvent},
     event_loop::{ControlFlow, EventLoop},
     window::WindowBuilder,
 };
+
 pub fn window_loop() {
     let event_loop = EventLoop::new();
     let window = WindowBuilder::new().build(&event_loop).unwrap();
@@ -19,12 +20,59 @@ pub fn window_loop() {
 
         match event {
             Event::WindowEvent {
-                event: WindowEvent::CloseRequested,
+                event:
+                    WindowEvent::CloseRequested
+                    | WindowEvent::KeyboardInput {
+                        // device_id,
+                        // is_synthetic,
+                        input:
+                            KeyboardInput {
+                                state: ElementState::Pressed,
+                                virtual_keycode: Some(VirtualKeyCode::Escape),
+                                ..
+                            },
+                        ..
+                    },
                 ..
             } => {
                 println!("The close button was pressed; stopping");
 
                 *control_flow = ControlFlow::Exit;
+            }
+            Event::WindowEvent {
+                event:
+                    WindowEvent::KeyboardInput {
+                        input:
+                            KeyboardInput {
+                                state: ElementState::Pressed,
+                                virtual_keycode: Some(VirtualKeyCode::Space),
+                                ..
+                            },
+                        ..
+                    },
+                ..
+            } => {
+                println!("Redraw button was pressed; redrawing");
+                window.set_maximized(!window.is_maximized());
+                window.request_redraw();
+                let size = window.inner_size();
+                println!("Current size: {:?}", size);
+            }
+            Event::WindowEvent {
+                event:
+                    WindowEvent::KeyboardInput {
+                        input:
+                            KeyboardInput {
+                                state: ElementState::Pressed,
+                                virtual_keycode: Some(VirtualKeyCode::P),
+                                ..
+                            },
+                        ..
+                    },
+                ..
+            } => {
+                window.window.set_title("Paused");
+                println!("Pause button was pressed; paused");
             }
             Event::MainEventsCleared => {
                 // Application update code.
