@@ -7,3 +7,5 @@ pub use duck_tester;
 pub use duck_ui;
 pub use duck_window;
 pub use duck_world;
+pub use duck_scene;
+pub use duck_math;
