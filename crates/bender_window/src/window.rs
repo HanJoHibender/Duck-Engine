@@ -1,51 +1,34 @@
-pub mod window_types {
-    #![allow(clippy::single_match)]
+extern crate glfw;
 
-    #[cfg(not(target_arch = "wasm32"))]
-    use simple_logger::SimpleLogger;
-    use winit::{
-        event::Event,
-        // event::{Event, WindowEvent},
-        event_loop::{EventLoop, EventLoopBuilder},
-        window::{Window, WindowBuilder},
-    };
+use glfw::{Action, Context, Key};
 
-    #[derive(Debug, Clone, Copy)]
-    pub enum UserEvent {
-        Event,
-    }
+pub fn run_window() {
+    let mut glfw = glfw::init(glfw::FAIL_ON_ERRORS).unwrap();
 
-    #[allow(dead_code)]
-    pub fn get_event_loop() -> EventLoop<UserEvent> {
-        let mut event_loop = EventLoopBuilder::with_user_event().build();
-        return event_loop;
-    }
+    // Create a windowed mode window and its OpenGL context
+    let (mut window, events) = glfw
+        .create_window(500, 300, "Duck Engine!", glfw::WindowMode::Windowed)
+        .expect("Failed to create GLFW window.");
 
-    pub fn get_window(title: &str, event_loop: EventLoop<UserEvent>) -> Window {
-        SimpleLogger::new().init().unwrap();
+    // Make the window's context current
+    window.make_current();
+    window.set_key_polling(true);
 
-        let window = WindowBuilder::new()
-            .with_title(title)
-            .build(&event_loop)
-            .unwrap();
-        return window;
-    }
-    pub fn simple_proxy_listener(event: UserEvent, event_loop: EventLoop<UserEvent>) {
-        // `EventLoopProxy` allows you to dispatch custom events to the main Winit event
-        // loop from any thread.
-        let event_loop_proxy = event_loop.create_proxy();
-        std::thread::spawn(move || {
-            // Wake up the `event_loop` once every second and dispatch a custom event
-            // from a different thread.
-            loop {
-                std::thread::sleep(std::time::Duration::from_secs(1));
-                event_loop_proxy.send_event(event).ok();
+    // Loop until the user closes the window
+    while !window.should_close() {
+        // Swap front and back buffers
+        window.swap_buffers();
+
+        // Poll for and process events
+        glfw.poll_events();
+        for (_, event) in glfw::flush_messages(&events) {
+            println!("{:?}", event);
+            match event {
+                glfw::WindowEvent::Key(Key::Escape, _, Action::Press, _) => {
+                    window.set_should_close(true)
+                }
+                _ => {}
             }
-        });
-    }
-
-    #[cfg(target_arch = "wasm32")]
-    fn simple_window() {
-        panic!("This example is not supported on web.");
+        }
     }
 }
