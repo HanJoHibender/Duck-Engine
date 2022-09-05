@@ -1,11 +1,11 @@
-use duck_internal::bender_window::window::simple_window;
+
+use duck_internal::bender_window::window;
 
 fn main() {
     // spawn window
-    simple_window();
-
+    window::run_window();
     // innitialise render
-    // window.insert_render();
+
     // generate World
     // visualise
 }
