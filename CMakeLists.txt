@@ -18,6 +18,7 @@ add_subdirectory("vendor/glm")
 add_subdirectory("vendor/glad")
 add_subdirectory("vendor/stb")
 add_subdirectory("vendor/entt")
+add_subdirectory("vendor/uuid_v4")
 
 find_package(OpenGL REQUIRED)
 include_directories(${OPENGL_INCLUDE_DIRS})

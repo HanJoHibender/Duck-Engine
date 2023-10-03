@@ -1,15 +1,16 @@
 //
-// Created by VrikkaDev on 26/09/2023.
+// Created by VrikkaDev on 02/10/2023.
 //
 
 #ifndef DUCKENGINE_TRANSFORM_H
 #define DUCKENGINE_TRANSFORM_H
 
 #include "pch.hxx"
+#include "Component.h"
 
 namespace DuckEngine {
 
-    class Transform {
+    class Transform : public Component{
     public:
         Transform() = default;
         glm::vec3 Position = {0,0,0};

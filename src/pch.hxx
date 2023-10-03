@@ -25,7 +25,6 @@
 //others
 #include "stb/stb_image.h"
 #include "entt/entt.hpp"
-
-
+#include "uuid_v4/uuid_v4.h"
 
 #endif //DUCKENGINE_PCH_HXX

@@ -9,21 +9,32 @@
 
 namespace DuckEngine {
 
-    class WindowEvent : Event{
+    class WindowEvent : public Event{
     public:
         WindowEvent() {
-            EventDispatcher::AddReceiver(this);
+            m_Window = nullptr;
+            m_Width = 800;
+            m_Height = 600;
         }
 
         WindowEvent(GLFWwindow* window, int width, int height) {
+            m_Window = window;
+            m_Width = width;
+            m_Height = height;
         }
+
+        ~WindowEvent() = default;
 
         void HandleEvent(Event* event) override {
             if (auto* windowEvent = dynamic_cast<WindowEvent*>(event)) {
-                OnWindowResize(nullptr, 800, 600);
+                OnWindowResize(windowEvent->m_Window, windowEvent->m_Width, windowEvent->m_Height);
             }
         }
+    private:
+        GLFWwindow* m_Window;
+        int m_Width, m_Height;
     protected:
+        void RegisterEvents() override {EventDispatcher::AddReceiver(this);}
         virtual void OnWindowResize(GLFWwindow* window, int width, int height) {}
     };
 

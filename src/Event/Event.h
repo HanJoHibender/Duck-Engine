@@ -9,12 +9,13 @@
 
 namespace DuckEngine {
 
-    //todo need to rewrite whole class at some point
-
     class Event {
     public:
         Event() = default;
+        ~Event() = default;
         virtual void HandleEvent(Event* event) {}
+    protected:
+        virtual void RegisterEvents() {}
     };
 
     class EventDispatcher {
@@ -32,9 +33,8 @@ namespace DuckEngine {
         }
 
     private:
-        static std::vector<Event*> m_EventReceivers;
+        inline static std::vector<Event*> m_EventReceivers;
     };
-    std::vector<Event*> EventDispatcher::m_EventReceivers;
 
 } // DuckEngine
 
