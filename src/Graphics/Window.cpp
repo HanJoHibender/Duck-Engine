@@ -6,7 +6,7 @@
 #include "Event/WindowEvent.h"
 
 namespace DuckEngine {
-    Window* Window::m_Instance = nullptr;
+    std::vector<Window*> Window::m_Windows = {};
 
     Window::Window(uint32_t width, uint32_t height, const char* title) {
         // Initialize GLFW
@@ -46,8 +46,8 @@ namespace DuckEngine {
         // Set the keyboard class of this window
         keyboard = new Keyboard(m_Window);
 
-        // Because of this no multiple windows supported
-        m_Instance = this;
+        // Push this window instance into the array of windows
+        m_Windows.push_back(this);
 
         // Set the flag to indicate that the window is running
         IsRunning = true;
@@ -74,12 +74,12 @@ namespace DuckEngine {
         exit(EXIT_SUCCESS);
     }
     // Window callback functions
-    void Window::key_callback(GLFWwindow* m_Window, int key, int scancode, int action, int mods) {
-        m_Instance->keyboard->OnKeyCallback(key, scancode, action, mods);
+    void Window::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+        GetWindowOf(window)->keyboard->OnKeyCallback(key, scancode, action, mods);
     }
 
     void Window::resize_callback(GLFWwindow* window, int w, int h) {
-        Instance()->m_WindowSize = {w,h};
+        GetWindowOf(window)->m_WindowSize = {w,h};
         glViewport(0, 0, w, h);
         // Dispatches the OnWindowResize event to the event receivers
         auto we = DuckEngine::WindowEvent(window, w, h);

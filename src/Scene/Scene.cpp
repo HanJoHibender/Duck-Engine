@@ -7,7 +7,7 @@
 #include "SceneObject.h"
 
 namespace DuckEngine {
-    Scene::Scene() {
+    Scene::Scene(Window& window) : window(window) {
     }
 
     void Scene::AddObject(SceneObject* sceneObject) {

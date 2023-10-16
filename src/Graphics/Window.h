@@ -7,6 +7,7 @@
 
 #include "pch.hxx"
 #include "Input/Keyboard.h"
+#include "RenderStack.h"
 
 namespace DuckEngine {
 
@@ -17,14 +18,26 @@ namespace DuckEngine {
         void Destroy();
 
         bool IsRunning = false;
+        bool IsFocused = false;
 
         glm::vec2 GetWindowSize();
 
-        static Window* Instance(){
-            return m_Instance;
+        Keyboard* keyboard;
+        RenderStack* renderstack;
+
+        static std::vector<Window*> WindowInstances(){
+            return m_Windows;
         }
 
-        Keyboard* keyboard;
+        static Window* GetWindowOf(GLFWwindow* window){
+            for(Window* w : m_Windows){
+                if (w->m_Window == window){
+                    return w;
+                }
+            }
+            return nullptr;
+        }
+
 
         static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
         static void resize_callback(GLFWwindow* window, int w, int h);
@@ -32,7 +45,7 @@ namespace DuckEngine {
         GLFWwindow* m_Window;
         glm::vec2 m_WindowSize;
 
-        static Window* m_Instance;
+        static std::vector<Window*> m_Windows;
     };
 
 } // DuckEngine

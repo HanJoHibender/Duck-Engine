@@ -12,8 +12,21 @@ namespace DuckEngine {
             return;
         }
 
+        // Update all components of this object
         m_Scene->objectRegistry.view<Component>().each([dt](auto object, Component& component){
            component.OnUpdate(dt);
         });
+    }
+
+    void SceneObject::OnDestroy() {
+        if(m_Scene == nullptr){
+            return;
+        }
+
+        // Remove all components of this object
+        m_Scene->objectRegistry.view<Component>().each([](auto object, Component& component){
+            component.OnRemove();
+        });
+        delete this;
     }
 } // DuckEngine

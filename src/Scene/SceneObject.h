@@ -42,7 +42,7 @@ namespace DuckEngine {
             auto& c = static_cast<Component&>(r);
             // Call OnComponentAttached event to this object, and OnAttached to the component
             this->OnComponentAttached(c);
-            c.OnAttached();
+            c.OnAttached(this);
             return r;
         }
 
@@ -81,6 +81,10 @@ namespace DuckEngine {
 
         UUIDv4::UUID GetUUID(){
             return m_Uuid;
+        }
+
+        Scene* GetScene(){
+            return m_Scene;
         }
 
     private:

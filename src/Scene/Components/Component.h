@@ -9,11 +9,13 @@
 
 namespace DuckEngine {
 
+    class SceneObject;
+
     class Component {
     public:
 
-        // Gets called when component has been added to a entity.
-        virtual void OnAttached(){}
+        // Gets called when component has been added to a sceneobject.
+        virtual void OnAttached(SceneObject* object){m_ParentObject = object;}
 
         // Gets called every entity tick
         virtual void OnUpdate(float dt){}
@@ -22,6 +24,9 @@ namespace DuckEngine {
         virtual void OnRemove(){}
 
         virtual void OnEvent(DuckEngine::Event* event){}
+
+    protected:
+        SceneObject* m_ParentObject;
     };
 
     namespace Components{

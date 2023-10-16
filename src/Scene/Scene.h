@@ -8,6 +8,7 @@
 #include "entt/entt.hpp"
 #include "Scene/Components/Component.h"
 #include "Scene/Components/Transform.h"
+#include "Graphics/Window.h"
 
 namespace DuckEngine {
 
@@ -15,7 +16,7 @@ namespace DuckEngine {
 
     class Scene {
     public:
-        Scene();
+        explicit Scene(Window& window);
 
         SceneObject CreateObject();
         void AddObject(SceneObject* sceneObject);
@@ -26,6 +27,7 @@ namespace DuckEngine {
 
         // TODO make private
         entt::registry objectRegistry;
+        Window& window;
     };
 
 } // DuckEngine
