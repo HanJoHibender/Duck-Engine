@@ -5,7 +5,11 @@
 #include "Camera.h"
 
 namespace DuckEngine {
-    Camera::Camera(Transform& transform): {
+    Camera::Camera() : SceneObject() {
+        this->RegisterEvents();
+    }
+
+    Camera::Camera(SceneObject& object) : SceneObject(object) {
         this->RegisterEvents();
     }
 
@@ -21,14 +25,24 @@ namespace DuckEngine {
     }
 
     void Camera::UpdateView() {
+        CAMERA_ASSERT_NULL_TRANSFORM
+
         // Create rotation matrix from quaternion
         glm::mat4 matrix(1.f);
-        glm::mat3 rot = glm::mat3_cast(m_Transform.GetQuat());
+        glm::mat3 rot = glm::mat3_cast(m_Transform->GetQuat());
 
         // Translate matrix by the inverse of camera position
-        matrix = glm::translate(matrix, -m_Transform.Position);
+        matrix = glm::translate(matrix, -m_Transform->Position);
 
         // Compute view matrix by multiplying rotation and translation matrices
         m_ViewMatrix = glm::mat4(rot) * matrix;
     }
+
+    void Camera::OnComponentAttached(const Component& component) {
+        // Should probably use the input component
+        if(this->HasComponent<Transform>()){
+            this->m_Transform = &this->GetComponent<Transform>();
+        }
+    }
+
 } // DuckEngine

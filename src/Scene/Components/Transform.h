@@ -25,6 +25,10 @@ namespace DuckEngine {
         glm::mat4 CreateTransformationMatrix() const;
     };
 
+    namespace Components{
+        using DuckEngine::Transform;
+    } // Components
+
 } // DuckEngine
 
 #endif //DUCKENGINE_TRANSFORM_H

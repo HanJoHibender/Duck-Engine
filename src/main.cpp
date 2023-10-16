@@ -2,14 +2,21 @@
 // Created by VrikkaDev on 26/09/2023.
 //
 
-#include "Event/Event.h"
-#include "Event/WindowEvent.h"
+#include "Engine.h"
+
+using namespace DuckEngine;
 
 int main(){
 
-    auto we = DuckEngine::WindowEvent(nullptr, 123, 456);
+    Window window = Window(640, 480, "Bread is tasty");
 
-    DuckEngine::EventDispatcher::DispatchEvent(&we);
+    Scene scene = Scene();
+    SceneObject obj = scene.CreateObject();
+    auto camera = Camera(obj);
+
+    camera.AddComponent<Transform>();
+
+    DuckEngine::Components::Transform a = DuckEngine::Transform();
 
     return 0;
 }

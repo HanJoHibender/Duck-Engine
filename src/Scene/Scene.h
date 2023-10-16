@@ -7,6 +7,7 @@
 
 #include "entt/entt.hpp"
 #include "Scene/Components/Component.h"
+#include "Scene/Components/Transform.h"
 
 namespace DuckEngine {
 
@@ -19,13 +20,6 @@ namespace DuckEngine {
         SceneObject CreateObject();
         void AddObject(SceneObject* sceneObject);
         void RemoveObject(SceneObject* sceneObject);
-
-        template<typename T>
-        SceneObject* GetObjectsOfType(){
-            auto a = objectRegistry.view<T>();
-            // TODO
-            return nullptr;
-        }
 
         // Updates all SceneObjects in the scene
         void OnUpdate(float dt);

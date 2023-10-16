@@ -7,6 +7,15 @@
 
 #include "pch.hxx"
 
+#include "Graphics/Window.h"
+
+#include "Event/WindowEvent.h"
+#include "Event/Event.h"
+
+#include "Scene/Scene.h"
+#include "Scene/SceneObject.h"
+#include "Scene/Objects/Camera.h"
+
 namespace DuckEngine {
 
     class Engine {

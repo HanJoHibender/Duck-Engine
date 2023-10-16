@@ -104,7 +104,7 @@ namespace UUIDv4 {
     class UUID {
     public:
 
-        constexpr UUID() noexcept
+        UUID()
         {}
 
         UUID(const UUID &other) {

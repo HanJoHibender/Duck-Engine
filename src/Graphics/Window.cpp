@@ -3,6 +3,7 @@
 //
 
 #include "Window.h"
+#include "Event/WindowEvent.h"
 
 namespace DuckEngine {
     Window* Window::m_Instance = nullptr;
@@ -74,14 +75,16 @@ namespace DuckEngine {
     }
     // Window callback functions
     void Window::key_callback(GLFWwindow* m_Window, int key, int scancode, int action, int mods) {
+        m_Instance->keyboard->OnKeyCallback(key, scancode, action, mods);
     }
 
     void Window::resize_callback(GLFWwindow* window, int w, int h) {
         Instance()->m_WindowSize = {w,h};
         glViewport(0, 0, w, h);
         // Dispatches the OnWindowResize event to the event receivers
-        //todo
-        //WindowEventDispatcher::DispatchWindowResize(window, w, h);
+        auto we = DuckEngine::WindowEvent(window, w, h);
+
+        DuckEngine::EventDispatcher::DispatchEvent(&we);
     }
 
     glm::vec2 Window::GetWindowSize() {

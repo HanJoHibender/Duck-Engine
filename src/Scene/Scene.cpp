@@ -11,11 +11,11 @@ namespace DuckEngine {
     }
 
     void Scene::AddObject(SceneObject* sceneObject) {
-
+        sceneObject->setupWithScene(this, objectRegistry.create());
     }
 
     void Scene::RemoveObject(SceneObject* sceneObject) {
-
+        objectRegistry.destroy(sceneObject->operator entt::entity());
     }
 
     void Scene::OnUpdate(float dt) {
@@ -23,10 +23,9 @@ namespace DuckEngine {
     }
 
     SceneObject Scene::CreateObject() {
-        SceneObject obj = SceneObject{static_cast<std::uint32_t>(objectRegistry.create()), this};
-
-
-
+        SceneObject obj = SceneObject{objectRegistry.create(), this};
+        // Give object Transform component.
+        auto tc = obj.AddComponent<Transform>();
         return obj;
     }
 } // DuckEngine
