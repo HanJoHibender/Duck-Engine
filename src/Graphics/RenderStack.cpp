@@ -11,16 +11,16 @@ namespace DuckEngine {
     }
 
     void RenderStack::Render() {
-        for(auto r3 : m_3dQueue){
+        for(const auto& r3 : m_3dQueue){
 
         }
     }
 
-    void RenderStack::AddRenderable3D(Renderable3D* renderable) {
-        m_3dQueue.push_back(renderable);
+    void RenderStack::AddRenderable3D(std::unique_ptr<Renderable3D> renderable) {
+        m_3dQueue.push_back(std::move(renderable));
     }
 
-    void RenderStack::RemoveRenderable3d(Renderable3D* renderable) {
+    void RenderStack::RemoveRenderable3d(std::unique_ptr<Renderable3D> renderable) {
         m_3dQueue.erase(std::find(m_3dQueue.begin(), m_3dQueue.end(), renderable));
     }
 } // DuckEngine

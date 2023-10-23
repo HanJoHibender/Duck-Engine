@@ -13,12 +13,12 @@ namespace DuckEngine {
     public:
         RenderStack();
 
-        void AddRenderable3D(Renderable3D* renderable);
-        void RemoveRenderable3d(Renderable3D* renderable);
+        void AddRenderable3D(std::unique_ptr<Renderable3D> renderable);
+        void RemoveRenderable3d(std::unique_ptr<Renderable3D> renderable);
 
         void Render();
     private:
-        std::vector<Renderable3D*> m_3dQueue;
+        std::vector<std::unique_ptr<Renderable3D>> m_3dQueue;
     };
 
 } // DuckEngine

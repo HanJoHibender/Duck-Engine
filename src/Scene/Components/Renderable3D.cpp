@@ -7,6 +7,7 @@
 
 namespace DuckEngine {
     Renderable3D::Renderable3D() {
-        this->m_ParentObject->GetScene()->window.renderstack->AddRenderable3D(this);
+        // Send unique pointer of THIS to renderstack.
+        this->m_ParentObject->GetScene()->window.renderstack->AddRenderable3D(std::unique_ptr<Renderable3D> (this));
     }
 } // DuckEngine
