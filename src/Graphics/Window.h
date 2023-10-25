@@ -20,6 +20,10 @@ namespace DuckEngine {
         bool IsRunning = false;
         bool IsFocused = false;
 
+        void SetVsync(bool value){
+            glfwSwapInterval(value);
+        }
+
         glm::vec2 GetWindowSize();
 
         Keyboard* keyboard;

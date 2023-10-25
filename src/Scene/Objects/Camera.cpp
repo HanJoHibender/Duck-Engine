@@ -38,6 +38,18 @@ namespace DuckEngine {
         m_ViewMatrix = glm::mat4(rot) * matrix;
     }
 
+    glm::mat4 Camera::GetViewMatrix() {
+        return m_ViewMatrix;
+    }
+
+    glm::mat4 Camera::GetProjectionMatrix() {
+        return m_ProjectionMatrix;
+    }
+
+    glm::mat4 Camera::GetViewProjectionMatrix() {
+        return m_ProjectionMatrix * m_ViewMatrix;
+    }
+
     void Camera::OnComponentAttached(const Component& component) {
         // Should probably use the input component
         if(this->HasComponent<Transform>()){

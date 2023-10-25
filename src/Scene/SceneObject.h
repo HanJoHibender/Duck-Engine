@@ -67,6 +67,11 @@ namespace DuckEngine {
 
         template<typename T>
         T& GetComponent(){
+
+            if(!this->HasComponent<T>()){
+                std::cout<<"Trying to get component that doesnt exist.." << std::endl;
+            }
+
             return m_Scene->objectRegistry.get<T>(m_Entt);
         }
 

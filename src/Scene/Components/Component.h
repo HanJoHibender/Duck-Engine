@@ -25,6 +25,11 @@ namespace DuckEngine {
 
         virtual void OnEvent(DuckEngine::Event* event){}
 
+
+        virtual SceneObject* GetObject(){
+            return m_ParentObject;
+        }
+
     protected:
         SceneObject* m_ParentObject;
     };

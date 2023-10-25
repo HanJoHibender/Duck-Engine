@@ -13,15 +13,21 @@ namespace DuckEngine {
 
     void RenderStack::Render(Camera* camera) {
         for(const auto& r3 : m_3dQueue){
-            r3->model.Draw();
+
+            // If doesnt have transform component dont draw.
+            if(r3->GetObject()->HasComponent<Transform>()){
+                continue;
+            }
+            auto trans = r3->GetObject()->GetComponent<Transform>();
+            r3->model.Draw(camera, trans);
         }
     }
 
-    void RenderStack::AddRenderable3D(std::unique_ptr<Renderable3D> renderable) {
-        m_3dQueue.push_back(std::move(renderable));
+    void RenderStack::AddRenderable3D(Renderable3D* renderable) {
+        m_3dQueue.push_back(renderable);
     }
 
-    void RenderStack::RemoveRenderable3d(std::unique_ptr<Renderable3D> renderable) {
+    void RenderStack::RemoveRenderable3d(Renderable3D* renderable) {
         m_3dQueue.erase(std::find(m_3dQueue.begin(), m_3dQueue.end(), renderable));
     }
 } // DuckEngine

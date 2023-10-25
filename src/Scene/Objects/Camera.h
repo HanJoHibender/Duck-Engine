@@ -26,6 +26,10 @@ namespace DuckEngine {
         void UpdateView();
         void UpdateProjection(uint32_t width, uint32_t height);
 
+        glm::mat4 GetViewMatrix();
+        glm::mat4 GetProjectionMatrix();
+        glm::mat4 GetViewProjectionMatrix();
+
         void OnComponentAttached(const Component& component) override;
         void OnWindowResize(GLFWwindow* window, int width, int height) override;
     private:

@@ -20,7 +20,11 @@ namespace DuckEngine {
     }
 
     void Scene::OnUpdate(float dt) {
-        //TODO Update sceneobjects
+        auto view = objectRegistry.view<SceneObject>();
+        for(auto obj : view){
+            auto c = view.get<SceneObject>(obj);
+            c.OnUpdate(dt);
+        }
     }
 
     SceneObject Scene::CreateObject() {

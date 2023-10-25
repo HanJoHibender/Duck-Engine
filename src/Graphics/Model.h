@@ -7,6 +7,7 @@
 
 #include "Mesh.h"
 #include "Material.h"
+#include "Scene/Objects/Camera.h"
 
 namespace DuckEngine {
 
@@ -14,7 +15,7 @@ namespace DuckEngine {
     public:
         Model(std::shared_ptr<Mesh> mesh, std::shared_ptr<Material> material);
 
-        void Draw();
+        void Draw(Camera* camera, const Transform& transform);
 
         Mesh* GetMesh(){
             return m_Mesh.get();
