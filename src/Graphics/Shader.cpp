@@ -6,11 +6,11 @@
 
 namespace DuckEngine {
     // Shader constructor that takes in two string pointers representing vertex and fragment shader code
-    Shader::Shader(std::string* vertex, std::string* fragment) {
+    Shader::Shader(std::string_view vertex, std::string_view fragment) {
 
-        // Convert the string pointers to const char pointers
-        const char* vertex_source = vertex->c_str();
-        const char* fragment_source = fragment->c_str();
+        // Convert the string_view to const char pointers
+        const char* vertex_source = vertex.data();
+        const char* fragment_source = fragment.data();
 
         // Create and compile vertex shader
         unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -78,18 +78,21 @@ namespace DuckEngine {
         glDeleteShader(fragmentShader);
     }
 
-// Shader constructor that takes in the file paths for the vertex and fragment shaders and reads the code from the files
+    // Shader constructor that takes in the file paths for the vertex and fragment shaders and reads the code from the files
     Shader::Shader(const char* vertexPath, const char* fragmentPath) : Shader(FileUtils::ReadFileString(vertexPath), FileUtils::ReadFileString(fragmentPath)){
     }
 
     Shader::~Shader() {
-        // Delete the shader program from OpenGL
+        // Deletes the shader program from OpenGL
         glDeleteProgram(m_ShaderProgram);
     }
 
-    void Shader::Bind() const {
-        // Use this shader program for subsequent rendering commands
+    void Shader::Bind() {
+        // Binds this shaderprogram to be used in rendering
         glUseProgram(m_ShaderProgram);
+
+        // Update uniform locations.
+        UpdateLocations();
     }
 
     void Shader::UnBind() const {
@@ -134,10 +137,33 @@ namespace DuckEngine {
     }
 
     std::map<std::string, int> Shader::GetLocations() {
-        return {{"", 0}};
+        return m_Locations;
     }
 
-    int Shader::GetLocation(const char* name) const {
-        return glGetUniformLocation(m_ShaderProgram ,name);
+    int Shader::GetLocation(const char* name) {
+
+        // Returns location from m_Locations if key exists. if not then add it there.
+        auto it = m_Locations.find(name);
+
+        if(it != m_Locations.end()){
+            int loc = glGetUniformLocation(m_ShaderProgram ,name);
+            m_Locations.insert_or_assign(name, loc);
+            return loc;
+        }
+
+        return it->second;
+    }
+
+    void Shader::UpdateLocations() {
+        // Loops trough existing locations and updated them
+        for(auto it = m_Locations.begin(); it != m_Locations.end();){
+            int l = glGetUniformLocation(m_ShaderProgram ,it->first.c_str());
+            if(l < 0){
+                m_Locations.erase(it);
+                // Ensures that the iterator is correctly advanced to the next entry
+                ++it;
+            }
+            it->second = l;
+        }
     }
 } // DuckEngine

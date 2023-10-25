@@ -23,7 +23,6 @@ namespace DuckEngine {
         glm::vec2 GetWindowSize();
 
         Keyboard* keyboard;
-        RenderStack* renderstack;
 
         static std::vector<Window*> WindowInstances(){
             return m_Windows;

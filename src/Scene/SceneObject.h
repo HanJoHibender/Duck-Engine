@@ -87,6 +87,8 @@ namespace DuckEngine {
             return m_Scene;
         }
 
+        bool isEnabled = true;
+
     private:
         entt::entity m_Entt;
         Scene* m_Scene = nullptr;

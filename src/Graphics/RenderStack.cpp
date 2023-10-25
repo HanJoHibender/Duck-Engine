@@ -4,15 +4,16 @@
 
 #include "RenderStack.h"
 #include "Scene/Components/Renderable3D.h"
+#include "Scene/Objects/Camera.h"
 
 namespace DuckEngine {
     RenderStack::RenderStack() {
 
     }
 
-    void RenderStack::Render() {
+    void RenderStack::Render(Camera* camera) {
         for(const auto& r3 : m_3dQueue){
-
+            r3->model.Draw();
         }
     }
 

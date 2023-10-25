@@ -7,6 +7,7 @@
 
 #include "Component.h"
 #include "Graphics/RenderStack.h"
+#include "Graphics/Model.h"
 
 namespace DuckEngine {
 
@@ -15,7 +16,8 @@ namespace DuckEngine {
     public:
         Renderable3D();
 
-        Color color = Color();
+        // Defaults to basic cube
+        Model model;
     };
 
     namespace Components{

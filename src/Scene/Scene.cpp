@@ -5,6 +5,7 @@
 #include "Scene.h"
 
 #include "SceneObject.h"
+#include "Scene/Objects/Camera.h"
 
 namespace DuckEngine {
     Scene::Scene(Window& window) : window(window) {
@@ -19,7 +20,7 @@ namespace DuckEngine {
     }
 
     void Scene::OnUpdate(float dt) {
-
+        //TODO Update sceneobjects
     }
 
     SceneObject Scene::CreateObject() {
@@ -27,5 +28,22 @@ namespace DuckEngine {
         // Give object Transform component.
         auto tc = obj.AddComponent<Transform>();
         return obj;
+    }
+
+    void Scene::Render() {
+        auto view = objectRegistry.view<Camera>();
+        for(auto obj : view){
+            auto c = view.get<Camera>(obj);
+
+            // Doesnt render if camera isnt enabled
+            if(!c.isEnabled){
+                continue;
+            }
+            // Update viewmatrices
+            c.UpdateView();
+
+            // Renders renderstack objects using camera
+            renderstack.Render(&c);
+        }
     }
 } // DuckEngine

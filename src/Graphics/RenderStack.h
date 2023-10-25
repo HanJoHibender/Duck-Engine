@@ -8,6 +8,7 @@
 namespace DuckEngine {
 
     class Renderable3D;
+    class Camera;
 
     class RenderStack {
     public:
@@ -16,7 +17,7 @@ namespace DuckEngine {
         void AddRenderable3D(std::unique_ptr<Renderable3D> renderable);
         void RemoveRenderable3d(std::unique_ptr<Renderable3D> renderable);
 
-        void Render();
+        void Render(Camera* camera);
     private:
         std::vector<std::unique_ptr<Renderable3D>> m_3dQueue;
     };

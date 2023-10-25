@@ -23,7 +23,7 @@ namespace DuckEngine {
         void UnBind() const;
 
         // Returns Mesh of basic cube
-        static Mesh CUBE();
+        static std::shared_ptr<Mesh> CUBE();
     private:
         uint32_t m_VAO = 0, m_VBO = 0, m_EBO = 0;
         uint32_t m_VertexCount = 0, m_IndexCount = 0;

@@ -50,7 +50,7 @@ namespace DuckEngine {
         glBindBuffer(GL_ARRAY_BUFFER, 0);
     }
 
-    Mesh Mesh::CUBE() {
+    std::shared_ptr<Mesh> Mesh::CUBE() {
 
         const std::vector<Vertex> vertices = {
                 // Vertices for the front face
@@ -113,6 +113,6 @@ namespace DuckEngine {
         };
 
 
-        return Mesh(vertices, indices);
+        return std::make_shared<Mesh>(vertices, indices);
     }
 } // DuckEngine

@@ -22,12 +22,15 @@ namespace DuckEngine {
         void AddObject(SceneObject* sceneObject);
         void RemoveObject(SceneObject* sceneObject);
 
+        void Render();
+
         // Updates all SceneObjects in the scene
         void OnUpdate(float dt);
 
-        // TODO make private
+        // TODO make private?
         entt::registry objectRegistry;
         Window& window;
+        RenderStack renderstack;
     };
 
 } // DuckEngine
