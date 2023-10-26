@@ -12,10 +12,12 @@ int main(){
     window.SetVsync(true);
 
     Scene scene = Scene(window);
+
     SceneObject obj = scene.CreateObject();
     auto camera = Camera(obj);
-    camera.AddComponent<Transform>();
 
+    SceneObject vobj = scene.CreateObject();
+    vobj.AddComponent<Renderable3D>();
 
     while (window.IsRunning){
         window.SwapBuffers();

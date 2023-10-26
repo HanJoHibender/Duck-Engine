@@ -5,6 +5,8 @@
 #ifndef DUCKENGINE_COMPONENT_H
 #define DUCKENGINE_COMPONENT_H
 
+#include <utility>
+
 #include "Event/Event.h"
 
 namespace DuckEngine {
@@ -13,6 +15,8 @@ namespace DuckEngine {
 
     class Component {
     public:
+
+        Component(std::string name) : ComponentName(std::move(name)){}
 
         // Gets called when component has been added to a sceneobject.
         virtual void OnAttached(SceneObject* object){m_ParentObject = object;}
@@ -29,6 +33,9 @@ namespace DuckEngine {
         virtual SceneObject* GetObject(){
             return m_ParentObject;
         }
+
+        virtual std::string ToString();
+        std::string ComponentName = "Component";
 
     protected:
         SceneObject* m_ParentObject;

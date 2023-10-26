@@ -7,10 +7,12 @@
 namespace DuckEngine {
     Camera::Camera() : SceneObject() {
         this->RegisterEvents();
+        this->ObjectName = "Camera";
     }
 
     Camera::Camera(SceneObject& object) : SceneObject(object) {
         this->RegisterEvents();
+        this->ObjectName = "Camera";
     }
 
     void Camera::OnWindowResize(GLFWwindow* window, int width, int height) {

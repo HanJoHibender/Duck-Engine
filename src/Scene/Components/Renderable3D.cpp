@@ -4,10 +4,11 @@
 
 #include "Renderable3D.h"
 #include "Scene/SceneObject.h"
+#include "Graphics/RenderStack.h"
 
 namespace DuckEngine {
     Renderable3D::Renderable3D()
-            : model(Model(Mesh::CUBE(), std::make_shared<Material>())){
+            : Component("Renderable3D"), model(Model(Mesh::CUBE(), std::make_shared<Material>())){
         // Send pointer of THIS to renderstack.
         this->m_ParentObject->GetScene()->renderstack.AddRenderable3D(this);
     }

@@ -6,7 +6,6 @@
 #define DUCKENGINE_RENDERABLE3D_H
 
 #include "Component.h"
-#include "Graphics/RenderStack.h"
 #include "Graphics/Model.h"
 
 namespace DuckEngine {

@@ -37,12 +37,21 @@ namespace DuckEngine {
 
         template<typename T, typename... Args>
         T& AddComponent(Args&&... args) {
+
+            // Checks if object already has the component and return that if so.
+            if(HasComponent<T>()){
+                Component& co = GetComponent<T>();
+                std::cout<< "Object already has component " << co.ToString() << std::endl;
+                return GetComponent<T>();
+            }
+
+
             // Adds the component with args
             auto& r = m_Scene->objectRegistry.emplace<T>(m_Entt, std::forward<Args>(args)...);
-            auto& c = static_cast<Component&>(r);
+            Component& co = r;
             // Call OnComponentAttached event to this object, and OnAttached to the component
-            this->OnComponentAttached(c);
-            c.OnAttached(this);
+            this->OnComponentAttached(co);
+            co.OnAttached(this);
             return r;
         }
 
@@ -60,7 +69,7 @@ namespace DuckEngine {
             }
 
             // Call OnRemove on the component before removing it
-            static_cast<Component>(this->GetComponent<T>()).OnRemove();
+            (Component&)(this->GetComponent<T>()).OnRemove();
 
             m_Scene->objectRegistry.remove<T>(m_Entt);
         }
@@ -70,6 +79,7 @@ namespace DuckEngine {
 
             if(!this->HasComponent<T>()){
                 std::cout<<"Trying to get component that doesnt exist.." << std::endl;
+                // TODO handle
             }
 
             return m_Scene->objectRegistry.get<T>(m_Entt);
@@ -93,6 +103,10 @@ namespace DuckEngine {
         }
 
         bool isEnabled = true;
+
+        virtual std::string ToString();
+        // TODO better naming system, maybe name as init variable? number suffix?
+        std::string ObjectName = "SceneObject";
 
     private:
         entt::entity m_Entt;

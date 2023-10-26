@@ -19,6 +19,8 @@ namespace DuckEngine {
         explicit Scene(Window& window);
 
         SceneObject CreateObject();
+
+        // If used Scene::CreateObject this is unnecessary
         void AddObject(SceneObject* sceneObject);
         void RemoveObject(SceneObject* sceneObject);
 
