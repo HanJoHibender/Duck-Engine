@@ -15,8 +15,10 @@ namespace DuckEngine {
     public:
         Renderable3D();
 
+        void OnAttached(SceneObject* sceneObject) override;
+
         // Defaults to basic cube
-        Model model;
+        std::shared_ptr<Model> model;
     };
 
     namespace Components{

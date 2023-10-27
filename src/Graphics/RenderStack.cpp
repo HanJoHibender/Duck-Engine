@@ -15,11 +15,11 @@ namespace DuckEngine {
         for(const auto& r3 : m_3dQueue){
 
             // If doesnt have transform component dont draw.
-            if(r3->GetObject()->HasComponent<Transform>()){
+            if(!r3->GetObject()->HasComponent<Transform>()){
                 continue;
             }
-            auto trans = r3->GetObject()->GetComponent<Transform>();
-            r3->model.Draw(camera, trans);
+            auto& trans = r3->GetObject()->GetComponent<Transform>();
+            r3->model->Draw(camera, dynamic_cast<const Transform&>(trans));
         }
     }
 

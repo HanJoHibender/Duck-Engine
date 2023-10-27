@@ -6,7 +6,8 @@
 
 namespace DuckEngine {
     Material::Material()
-            : m_Shader(Shader("./Assets/Shaders/default.vert", "./Assets/Shaders/default.frag")){
+            : m_Shader(Shader("./Assets/Shaders/default.vert", "./Assets/Shaders/default.frag")),
+            m_Ambient{0.1f,0.1f,0.1f}, m_Diffuse{0.8f, 0.8f, 0.8f}, m_Specular{1.0f, 1.0f, 1.0f}, m_Shininess{32.0f} {
     }
 
     Material::Material(const glm::vec3& ambient, const glm::vec3& diffuse, const glm::vec3& specular, float shininess)

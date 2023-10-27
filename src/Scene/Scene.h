@@ -13,14 +13,20 @@
 namespace DuckEngine {
 
     class SceneObject;
+    class Camera;
 
     class Scene {
     public:
         explicit Scene(Window& window);
 
+        // Creates sceneobject with Transform componnt
         SceneObject CreateObject();
+        // Creates camera obect with Transform component
+        Camera& CreateCamera();
 
-        // If used Scene::CreateObject this is unnecessary
+        // TODO need to make this cleaner..
+
+        // If used Scene::CreateObject this is not necessary
         void AddObject(SceneObject* sceneObject);
         void RemoveObject(SceneObject* sceneObject);
 
@@ -33,6 +39,9 @@ namespace DuckEngine {
         entt::registry objectRegistry;
         Window& window;
         RenderStack renderstack;
+
+        // TODO better camera handling to scene
+        std::vector<Camera*> scenecameras{};
     };
 
 } // DuckEngine

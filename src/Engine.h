@@ -12,6 +12,9 @@
 #include "Event/WindowEvent.h"
 #include "Event/Event.h"
 
+#include "Scene/Components/Component.h"
+#include "Scene/Components/Renderable3D.h"
+
 #include "Scene/Scene.h"
 #include "Scene/SceneObject.h"
 #include "Scene/Objects/Camera.h"

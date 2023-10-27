@@ -18,7 +18,7 @@ namespace DuckEngine {
     // Is there actually any good reason i made this sceneobject.. idk :)
     class Camera : public WindowEvent, public SceneObject {
     public:
-        float Fov = 80, NearPlane = 0.00001, FarPlane = 1000;
+        float Fov = 80, NearPlane = 0.0001, FarPlane = 1000;
 
         Camera();
         Camera(SceneObject& object);

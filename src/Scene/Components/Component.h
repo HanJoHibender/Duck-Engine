@@ -34,7 +34,7 @@ namespace DuckEngine {
             return m_ParentObject;
         }
 
-        virtual std::string ToString();
+        virtual const std::string ToString();
         std::string ComponentName = "Component";
 
     protected:

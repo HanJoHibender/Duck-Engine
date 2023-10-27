@@ -11,6 +11,9 @@ namespace DuckEngine {
     }
 
     void Model::Draw(Camera* camera, const Transform& transform) {
+
+        std::cout<<"Model :: Draw"<<std::endl;
+
         // Create transformation matrix
         glm::mat4 matrix = transform.CreateTransformationMatrix();
         // Get view projection matrix from camera

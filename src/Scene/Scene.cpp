@@ -35,19 +35,34 @@ namespace DuckEngine {
     }
 
     void Scene::Render() {
-        auto view = objectRegistry.view<Camera>();
-        for(auto obj : view){
-            auto c = view.get<Camera>(obj);
 
+        for(auto cam : scenecameras){
             // Doesnt render if camera isnt enabled
-            if(!c.isEnabled){
+            if(!cam->isEnabled){
                 continue;
             }
             // Update viewmatrices
-            c.UpdateView();
+            cam->UpdateView();
 
             // Renders renderstack objects using camera
-            renderstack.Render(&c);
+            renderstack.Render(cam);
         }
+    }
+
+    Camera& Scene::CreateCamera() {
+        /*
+         * Doesnt use CreateObject because it adds transform component
+         * before adding the object to camera. so it messes things up.
+         *
+         * Probably should fix it somehow instead of this :D
+         */
+        auto* camera = new Camera();
+        AddObject(camera);
+
+        camera->AddComponent<Transform>();
+
+        this->scenecameras.push_back(camera);
+
+        return *camera;
     }
 } // DuckEngine

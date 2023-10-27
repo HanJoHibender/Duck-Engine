@@ -6,7 +6,7 @@
 #include "Scene/SceneObject.h"
 
 namespace DuckEngine {
-    std::string Component::ToString() {
+    const std::string Component::ToString() {
         if(m_ParentObject == nullptr){
             return ComponentName;
         }

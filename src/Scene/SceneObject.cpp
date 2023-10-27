@@ -30,7 +30,7 @@ namespace DuckEngine {
         delete this;
     }
 
-    std::string SceneObject::ToString() {
+    const std::string SceneObject::ToString() {
         return ObjectName;
     }
 } // DuckEngine

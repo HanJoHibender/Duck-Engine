@@ -8,8 +8,13 @@
 
 namespace DuckEngine {
     Renderable3D::Renderable3D()
-            : Component("Renderable3D"), model(Model(Mesh::CUBE(), std::make_shared<Material>())){
+            : Component("Renderable3D"), model(std::make_shared<Model>(Mesh::CUBE(), std::make_shared<Material>())){
+    }
+
+    void Renderable3D::OnAttached(SceneObject* sceneObject) {
+        m_ParentObject = sceneObject;
+
         // Send pointer of THIS to renderstack.
-        this->m_ParentObject->GetScene()->renderstack.AddRenderable3D(this);
+        m_ParentObject->GetScene()->renderstack.AddRenderable3D(this);
     }
 } // DuckEngine
