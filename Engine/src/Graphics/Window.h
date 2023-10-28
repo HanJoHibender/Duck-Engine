@@ -15,6 +15,7 @@ namespace DuckEngine {
     public:
         Window(uint32_t width, uint32_t height, const char* title);
         void SwapBuffers();
+        void RenderBackground() const;
         void Destroy();
 
         bool IsRunning = false;
@@ -26,7 +27,8 @@ namespace DuckEngine {
 
         glm::vec2 GetWindowSize();
 
-        Keyboard* keyboard;
+        std::shared_ptr<Keyboard> keyboard;
+        Color background_color{};
 
         static std::vector<Window*> WindowInstances(){
             return m_Windows;

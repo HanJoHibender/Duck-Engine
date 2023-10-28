@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.24)
-project(DuckEngine)
+project(DuckEngine VERSION 1.0.0)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -24,7 +24,7 @@ find_package(OpenGL REQUIRED)
 include_directories(${OPENGL_INCLUDE_DIRS})
 find_package(Threads REQUIRED)
 
-add_executable(DuckEngine ${src_files})
+add_library(DuckEngine ${src_files})
 
 target_precompile_headers(DuckEngine PRIVATE src/pch.cxx src/pch.hxx)
 target_link_libraries(DuckEngine PUBLIC glfw ${GLFW_LIBRARIES} ${OPENGL_LIBRARIES}

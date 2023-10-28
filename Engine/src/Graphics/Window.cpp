@@ -44,7 +44,7 @@ namespace DuckEngine {
         glfwSwapInterval(1);
 
         // Set the keyboard class of this window
-        keyboard = new Keyboard(m_Window);
+        keyboard = std::make_shared<Keyboard>(m_Window);
 
         // Push this window instance into the array of windows
         m_Windows.push_back(this);
@@ -89,5 +89,12 @@ namespace DuckEngine {
 
     glm::vec2 Window::GetWindowSize() {
         return m_WindowSize;
+    }
+
+    void Window::RenderBackground() const {
+        // Set clear color
+        glClearColor(background_color.GetR(), background_color.GetG(), background_color.GetB(), background_color.GetA());
+        // Clear color and depth buffers
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
 } // DuckEngine

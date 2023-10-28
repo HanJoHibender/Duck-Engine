@@ -167,12 +167,12 @@ namespace DuckEngine {
 
                 std::cout<<"Location " << it->first << " wasn't found" <<std::endl;
 
-                it = m_Locations.erase(it);
                 // Ensures that the iterator is correctly advanced to the next entry
-                //++it;
+                it = m_Locations.erase(it);
                 continue;
             }
             it->second = l;
+            ++it;
         }
     }
 } // DuckEngine

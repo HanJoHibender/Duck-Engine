@@ -12,30 +12,29 @@ namespace DuckEngine {
             this->r = 0;
             this->g = 0;
             this->b = 0;
-            this->a = 100;
+            this->a = 1.f;
         }
-        Color(int r, int g, int b, int a){
+        Color(float r, float g, float b, float a){
             this->r = r;
             this->g = g;
             this->b = b;
             this->a = a;
         }
 
-        int GetR() const{
+        float GetR() const{
             return this->r;
         }
-        int GetG() const{
+        float GetG() const{
             return this->g;
         }
-        int GetB() const{
+        float GetB() const{
             return this->b;
         }
-        int GetA() const{
+        float GetA() const{
             return this->a;
         }
 
-    private:
-        int r, g, b, a;
+        float r, g, b, a;
     };
 
 } // DuckEngine

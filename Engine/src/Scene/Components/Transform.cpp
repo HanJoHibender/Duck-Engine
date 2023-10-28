@@ -28,6 +28,7 @@ namespace DuckEngine {
     glm::mat4 Transform::CreateTransformationMatrix() const {
         // Create a 4x4 identity matrix
         glm::mat4 unit = glm::mat4(1.0f);
+
         // Create a translation matrix with the Position vector
         glm::mat4 t = glm::translate(unit, Position);
         // Create a rotation matrix for each axis (X, Y, Z) using quaternion rotation
