@@ -59,4 +59,8 @@ namespace DuckEngine {
         }
     }
 
+    void Camera::OnStart() {
+        UpdateProjection(GetScene()->window.GetWindowSize().x, GetScene()->window.GetWindowSize().y);
+    }
+
 } // DuckEngine

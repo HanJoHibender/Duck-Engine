@@ -99,6 +99,9 @@ namespace DuckEngine {
         // Updates object components
         virtual void OnUpdate(float dt);
 
+        // Gets called when is object added to a scene
+        virtual void OnStart(){}
+
         // Gets called right when this object gets destroyed
         virtual void OnDestroy();
 

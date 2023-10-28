@@ -29,6 +29,8 @@ namespace DuckEngine {
 
     SceneObject Scene::CreateObject() {
         SceneObject obj = SceneObject{objectRegistry.create(), this};
+
+        obj.OnStart();
         // Give object Transform component.
         auto tc = obj.AddComponent<Transform>();
         return obj;
@@ -58,6 +60,8 @@ namespace DuckEngine {
          */
         auto* camera = new Camera();
         AddObject(camera);
+
+        camera->OnStart();
 
         camera->AddComponent<Transform>();
 

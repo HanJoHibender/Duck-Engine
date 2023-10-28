@@ -132,7 +132,10 @@ namespace DuckEngine {
 
     void Shader::LoadUniform(const std::string& name, glm::mat4& matrix) {
         // Find the location of a uniform variable by name and load the matrix into it
-        if(!GetLocations().count(name)) return; // The uniform variable was not found
+        if(!GetLocations().count(name)) {
+            LoadMatrix(GetLocation(name.c_str()), matrix);
+            return;
+        }
         LoadMatrix(GetLocations().at(name), matrix);
     }
 
@@ -146,22 +149,28 @@ namespace DuckEngine {
         auto it = m_Locations.find(name);
 
         if(it != m_Locations.end()){
-            int loc = glGetUniformLocation(m_ShaderProgram ,name);
-            m_Locations.insert_or_assign(name, loc);
-            return loc;
+            return it->second;
         }
 
-        return it->second;
+        int loc = glGetUniformLocation(m_ShaderProgram ,name);
+        m_Locations.insert_or_assign(name, loc);
+        return loc;
     }
 
     void Shader::UpdateLocations() {
         // Loops trough existing locations and updated them
         for(auto it = m_Locations.begin(); it != m_Locations.end();){
             int l = glGetUniformLocation(m_ShaderProgram ,it->first.c_str());
+
+            // Erases locations that arent valid
             if(l < 0){
-                m_Locations.erase(it);
+
+                std::cout<<"Location " << it->first << " wasn't found" <<std::endl;
+
+                it = m_Locations.erase(it);
                 // Ensures that the iterator is correctly advanced to the next entry
-                ++it;
+                //++it;
+                continue;
             }
             it->second = l;
         }

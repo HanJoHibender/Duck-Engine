@@ -6,12 +6,12 @@
 
 namespace DuckEngine {
     Material::Material()
-            : m_Shader(Shader("./Assets/Shaders/default.vert", "./Assets/Shaders/default.frag")),
+            : m_Shader(std::make_shared<Shader>("./Assets/Shaders/default.vert", "./Assets/Shaders/default.frag")),
             m_Ambient{0.1f,0.1f,0.1f}, m_Diffuse{0.8f, 0.8f, 0.8f}, m_Specular{1.0f, 1.0f, 1.0f}, m_Shininess{32.0f} {
     }
 
     Material::Material(const glm::vec3& ambient, const glm::vec3& diffuse, const glm::vec3& specular, float shininess)
-            : m_Shader(Shader("./Assets/Shaders/default.vert", "./Assets/Shaders/default.frag")),
+            : m_Shader(std::make_shared<Shader>("./Assets/Shaders/default.vert", "./Assets/Shaders/default.frag")),
             m_Ambient(ambient), m_Diffuse(diffuse), m_Specular(specular), m_Shininess(shininess) {
     }
 
@@ -31,23 +31,23 @@ namespace DuckEngine {
         m_Shininess = shininess;
     }
 
-    void Material::SetShader(Shader shader) {
+    void Material::SetShader(std::shared_ptr<Shader> shader) {
         m_Shader = shader;
     }
 
-    Shader& Material::GetShader() {
+    std::shared_ptr<Shader> Material::GetShader() {
         return m_Shader;
     }
 
     void Material::UseMaterial() {
 
-        m_Shader.Bind(); // Activate the shader program
+        m_Shader->Bind(); // Activate the shader program
 
         // Send the material properties as uniforms to the shader
-        m_Shader.LoadVector3(m_Shader.GetLocation("material.ambient"), m_Ambient);
-        m_Shader.LoadVector3(m_Shader.GetLocation("material.diffuse"), m_Diffuse);
-        m_Shader.LoadVector3(m_Shader.GetLocation("material.specular"), m_Specular);
-        m_Shader.LoadFloat(m_Shader.GetLocation("material.shininess"), m_Shininess);
+        /*m_Shader->LoadVector3(m_Shader->GetLocation("material.ambient"), m_Ambient);
+        m_Shader->LoadVector3(m_Shader->GetLocation("material.diffuse"), m_Diffuse);
+        m_Shader->LoadVector3(m_Shader->GetLocation("material.specular"), m_Specular);
+        m_Shader->LoadFloat(m_Shader->GetLocation("material.shininess"), m_Shininess);*/
 
     }
 } // DuckEngine

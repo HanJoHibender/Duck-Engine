@@ -32,9 +32,9 @@ namespace DuckEngine {
         m_Material->UseMaterial();
 
         // Load the matrices to the shader
-        m_Material->GetShader().LoadUniform("viewMatrix", view);
-        m_Material->GetShader().LoadUniform("projectionMatrix", proj);
-        m_Material->GetShader().LoadUniform("transformationMatrix", trans);
+        m_Material->GetShader()->LoadUniform("viewMatrix", view);
+        m_Material->GetShader()->LoadUniform("projectionMatrix", proj);
+        m_Material->GetShader()->LoadUniform("transformationMatrix", trans);
 
         // Bind mesh and draw
         m_Mesh->Bind();
@@ -43,6 +43,6 @@ namespace DuckEngine {
 
         // UnBind mesh, shader program
         m_Mesh->UnBind();
-        m_Material->GetShader().UnBind();
+        m_Material->GetShader()->UnBind();
     }
 } // DuckEngine
