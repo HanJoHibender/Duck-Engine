@@ -55,7 +55,7 @@ namespace DuckEngine {
     void Camera::OnComponentAttached(const Component& component) {
         // Should probably use the input component
         if(this->HasComponent<Transform>()){
-            this->m_Transform = dynamic_cast<Transform*>(&this->GetComponent<Transform>());
+            this->m_Transform = (Transform*)(this->GetComponent<Transform>());
         }
     }
 

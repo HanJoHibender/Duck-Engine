@@ -5,10 +5,10 @@
 #ifndef DUCKENGINE_SCENE_H
 #define DUCKENGINE_SCENE_H
 
-#include "entt/entt.hpp"
 #include "Scene/Components/Component.h"
 #include "Scene/Components/Transform.h"
 #include "Graphics/Window.h"
+#include "Core/Threads/Thread.h"
 
 namespace DuckEngine {
 
@@ -35,13 +35,15 @@ namespace DuckEngine {
         // Updates all SceneObjects in the scene
         void OnUpdate(float dt);
 
+        bool IsEnabled = true;
+
         // TODO make private?
-        entt::registry objectRegistry;
         Window& window;
         RenderStack renderstack;
+        DuckEngine::Thread* scenethread;
 
-        // TODO better camera handling to scene
         std::vector<Camera*> scenecameras{};
+        std::vector<SceneObject*> sceneobjects{};
     };
 
 } // DuckEngine

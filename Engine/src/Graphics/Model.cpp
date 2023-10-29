@@ -10,10 +10,10 @@ namespace DuckEngine {
         m_Material = material;
     }
 
-    void Model::Draw(Camera* camera, const Transform& transform) {
+    void Model::Draw(Camera* camera, Transform* transform) {
 
         // Create transformation matrix
-        glm::mat4 matrix = transform.CreateTransformationMatrix();
+        glm::mat4 matrix = transform->CreateTransformationMatrix();
         // Get view projection matrix from camera
         glm::mat4 vp = camera->GetViewProjectionMatrix();
 

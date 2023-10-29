@@ -18,8 +18,8 @@ namespace DuckEngine {
             if(!r3->GetObject()->HasComponent<Transform>()){
                 continue;
             }
-            auto& trans = r3->GetObject()->GetComponent<Transform>();
-            r3->model->Draw(camera, dynamic_cast<const Transform&>(trans));
+            Transform* trans = (Transform*)r3->GetObject()->GetComponent<Transform>();
+            r3->model->Draw(camera, trans);
         }
     }
 

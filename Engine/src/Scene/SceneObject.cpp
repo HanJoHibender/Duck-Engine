@@ -13,9 +13,9 @@ namespace DuckEngine {
         }
 
         // Update all components of this object
-        m_Scene->objectRegistry.view<Component>().each([dt](auto object, Component& component){
-           component.OnUpdate(dt);
-        });
+        for (auto component : m_Components){
+            component.second->OnUpdate(dt);
+        }
     }
 
     void SceneObject::OnDestroy() {
@@ -24,10 +24,9 @@ namespace DuckEngine {
         }
 
         // Remove all components of this object
-        m_Scene->objectRegistry.view<Component>().each([](auto object, Component& component){
-            component.OnRemove();
-        });
-        delete this;
+        for (auto component : m_Components){
+            component.second->OnRemove();
+        }
     }
 
     const std::string SceneObject::ToString() {

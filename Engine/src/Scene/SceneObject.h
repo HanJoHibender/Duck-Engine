@@ -12,15 +12,12 @@ namespace DuckEngine {
 
     class SceneObject {
     public:
-        static constexpr auto null = entt::null;
-
-        explicit SceneObject(entt::entity value = null, Scene* scene = nullptr) noexcept
-        : m_Entt{value}, m_Scene{scene} {
-            m_Uuid = uuidGenerator.getUUID();
+        explicit SceneObject(Scene* scene = nullptr, const UUID uuid = UUID()) noexcept
+        : m_Scene{scene} {
         }
 
         SceneObject(const SceneObject &other) noexcept
-                : m_Entt{other.m_Entt}, m_Scene{other.m_Scene} {
+                : m_Uuid{other.m_Uuid}, m_Scene{other.m_Scene} {
             m_Uuid = other.m_Uuid;
             m_Components = other.m_Components;
             ObjectName = other.ObjectName;
@@ -28,72 +25,62 @@ namespace DuckEngine {
 
         // Initializes scene variables if didnt create object using Scene::CreateObject
         // Gets called from Scene::AddObject
-        void setupWithScene(Scene* scene, entt::entity entity){
+        void SetScene(Scene* scene){
             m_Scene = scene;
-            m_Entt = entity;
-        }
-
-        explicit operator entt::entity() const noexcept {
-            return m_Entt;
         }
 
         template<typename T, typename... Args>
-        Component& AddComponent(Args&&... args) {
+        Component* AddComponent(Args&&... args) {
 
             // Checks if object already has the component and return that if so.
             if(HasComponent<T>()){
-                Component& co = GetComponent<T>();
-                std::cout<< "Object already has component " << co.ToString() << std::endl;
+                Component* co = GetComponent<T>();
+                std::cout<< this->ToString() << " already has component " << co->ToString() << std::endl;
                 return co;
             }
 
 
             // Adds the component with args
-            auto& r = m_Scene->objectRegistry.emplace<T>(m_Entt, std::forward<Args>(args)...);
-            Component& co = r;
-
-            m_Components.push_back(&co);
+            Component* r = m_Components[std::type_index(typeid(T))] = new T(std::forward<Args>(args)...);
 
             // Call OnComponentAttached event to this object, and OnAttached to the component
-            this->OnComponentAttached(co);
-            co.OnAttached(this);
+            this->OnComponentAttached(*r);
+            r->OnAttached(this);
             return r;
         }
 
         template<typename T>
         bool HasComponent() {
-            return m_Scene->objectRegistry.any_of<T>(m_Entt);
+            return m_Components.find(std::type_index(typeid(T))) != m_Components.end();
         }
 
         template<typename T>
         void RemoveComponent() {
 
-            // Return if this object doesn't have the component
-            if(!this->HasComponent<T>()){
-                return;
+            auto it = m_Components.find(std::type_index(typeid(T)));
+            if (it != m_Components.end()) {
+                // Call OnRemove on the component before removing it
+                (Component&)(this->GetComponent<T>()).OnRemove();
+                m_Components.erase(it);
             }
 
-            m_Components.erase(std::find(m_Components.begin(), m_Components.end(), (Component&)(this->GetComponent<T>())));
-
-            // Call OnRemove on the component before removing it
-            (Component&)(this->GetComponent<T>()).OnRemove();
-
-            m_Scene->objectRegistry.remove<T>(m_Entt);
         }
 
         template<typename T>
-        Component& GetComponent(){
+        Component* GetComponent(){
 
+            // Check if has component and if doesnt return nullptr
             if(!this->HasComponent<T>()){
                 std::cout<<"Trying to get component that doesnt exist.." << std::endl;
-                // TODO handle
+                return nullptr;
             }
 
-            return m_Scene->objectRegistry.get<T>(m_Entt);
-        }
+            auto it = m_Components.find(std::type_index(typeid(T)));
+            if (it != m_Components.end()) {
+                return dynamic_cast<T*>(it->second);
+            }
 
-        std::vector<Component*> GetComponents(){
-            return m_Components;
+            return nullptr;
         }
 
         // Updates object components
@@ -109,7 +96,7 @@ namespace DuckEngine {
         virtual void OnComponentAttached(const Component& component) {
         };
 
-        UUIDv4::UUID GetUUID(){
+        UUID GetUUID(){
             return m_Uuid;
         }
 
@@ -124,11 +111,10 @@ namespace DuckEngine {
         std::string ObjectName = "SceneObject";
 
     private:
-        entt::entity m_Entt;
         Scene* m_Scene = nullptr;
-        UUIDv4::UUID m_Uuid; // Might be unnecessary, could use the entity_type above?
+        UUID m_Uuid;
 
-        std::vector<Component*> m_Components{};
+        std::unordered_map<std::type_index, Component*> m_Components{};
     };
 
 } // DuckEngine

@@ -3,6 +3,7 @@
 //
 
 #include "Engine.h"
+#include "Components/FpsComponent.h"
 
 using namespace DuckEngine;
 
@@ -11,27 +12,33 @@ int main(){
     Window window = Window(640, 480, "Bread is good");
     window.SetVsync(true);
 
+
     Scene scene = Scene(window);
 
     auto& camera = scene.CreateCamera();
-    Transform* cameraTransform = ((Transform*)&camera.GetComponent<Transform>());
+    Transform* cameraTransform = ((Transform*)camera.GetComponent<Transform>());
     cameraTransform->Position += cameraTransform->FORWARD() * 0.1f;
 
     SceneObject vobj = scene.CreateObject();
     vobj.AddComponent<Renderable3D>();
 
+    FpsComponent* fpsComponent = (FpsComponent*)vobj.AddComponent<FpsComponent>();
+
     float speed = 0.001f;
     float yaw = 0.f, pitch = 0.f;
 
+    // A test keybind that prints fps
+    Keybind* fpsBind = new Keybind(GLFW_KEY_F, "fpsbind");
+    window.keyboard->AddKeybind(fpsBind);
 
-    // TODO make it so things like window swapbiffers or scene onupdate arent here.
+
+    // TODO make it so things like window swapbuffers or scene onupdate arent here.
+    // TODO this shouldnt exist here.. use component/onupdate
     while (window.IsRunning){
         window.SwapBuffers();
         window.RenderBackground();
 
         scene.Render();
-
-        scene.OnUpdate(0);
 
         if(window.keyboard->IsPressing(GLFW_KEY_RIGHT)){
             cameraTransform->Position += cameraTransform->RIGHT() * speed;
@@ -63,9 +70,14 @@ int main(){
             cameraTransform->Rotation.y = yaw;
         }
 
+        if(fpsBind->IsPressed()){
+            std::cout<<"Fps: "<< fpsComponent->GetFps()<< std::endl;
+        }
+
     }
 
     window.Destroy();
 
     return 0;
 }
+

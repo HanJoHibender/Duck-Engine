@@ -7,9 +7,11 @@
 
 #include "pch.hxx"
 
-#include "Graphics/Window.h"
+#include "Core/Threads/SceneThread.h"
 
+#include "Graphics/Window.h"
 #include "Event/WindowEvent.h"
+
 #include "Event/Event.h"
 
 #include "Scene/Components/Component.h"

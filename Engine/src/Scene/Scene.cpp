@@ -6,33 +6,38 @@
 
 #include "SceneObject.h"
 #include "Scene/Objects/Camera.h"
+#include "Core/Threads/SceneThread.h"
 
 namespace DuckEngine {
     Scene::Scene(Window& window) : window(window) {
+        scenethread = new SceneThread(*this);
+        scenethread->Start();
     }
 
     void Scene::AddObject(SceneObject* sceneObject) {
-        sceneObject->setupWithScene(this, objectRegistry.create());
+        sceneObject->SetScene(this);
+        sceneobjects.push_back(sceneObject);
     }
 
     void Scene::RemoveObject(SceneObject* sceneObject) {
-        objectRegistry.destroy(sceneObject->operator entt::entity());
+        sceneobjects.erase(std::find(sceneobjects.begin(), sceneobjects.end(), sceneObject));
     }
 
     void Scene::OnUpdate(float dt) {
-        auto view = objectRegistry.view<SceneObject>();
-        for(auto obj : view){
-            auto c = view.get<SceneObject>(obj);
-            c.OnUpdate(dt);
+        for(auto obj : sceneobjects){
+            obj->OnUpdate(dt);
         }
     }
 
     SceneObject Scene::CreateObject() {
-        SceneObject obj = SceneObject{objectRegistry.create(), this};
+        SceneObject obj = SceneObject{this};
 
         obj.OnStart();
         // Give object Transform component.
         auto tc = obj.AddComponent<Transform>();
+
+        sceneobjects.push_back(&obj);
+
         return obj;
     }
 

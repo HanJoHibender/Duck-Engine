@@ -15,7 +15,7 @@ namespace DuckEngine {
     public:
         Model(std::shared_ptr<Mesh> mesh, std::shared_ptr<Material> material);
 
-        void Draw(Camera* camera, const Transform& transform);
+        void Draw(Camera* camera, Transform* transform);
 
         Mesh* GetMesh(){
             return m_Mesh.get();
