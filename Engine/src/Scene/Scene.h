@@ -32,8 +32,10 @@ namespace DuckEngine {
 
         void Render();
 
-        // Updates all SceneObjects in the scene
+        // Calls OnUpdate on all SceneObjects in the scene
         void OnUpdate(float dt);
+        // Calls OnFixedUpdates on all SceneObjects in the scene 60 times a second
+        void OnFixedUpdate(float dt);
 
         bool IsEnabled = true;
 

@@ -86,6 +86,9 @@ namespace DuckEngine {
         // Updates object components
         virtual void OnUpdate(float dt);
 
+        // Gets called 60 times a second. Calls OnFixedUpdate on object components
+        virtual void OnFixedUpdate(float dt);
+
         // Gets called when is object added to a scene
         virtual void OnStart(){}
 

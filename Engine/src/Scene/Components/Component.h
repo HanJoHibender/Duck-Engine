@@ -21,8 +21,11 @@ namespace DuckEngine {
         // Gets called when component has been added to a sceneobject.
         virtual void OnAttached(SceneObject* object){m_ParentObject = object;}
 
-        // Gets called every entity tick
+        // Gets called every entity tick up to (120 determined in SceneThread.cpp) times a second
         virtual void OnUpdate(float dt){}
+
+        // Gets called 60 times a second
+        virtual void OnFixedUpdate(float dt){};
 
         // Gets called when this component gets removed from object
         virtual void OnRemove(){}

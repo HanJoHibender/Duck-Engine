@@ -29,6 +29,12 @@ namespace DuckEngine {
         }
     }
 
+    void Scene::OnFixedUpdate(float dt) {
+        for(auto obj : sceneobjects){
+            obj->OnFixedUpdate(dt);
+        }
+    }
+
     SceneObject Scene::CreateObject() {
         SceneObject obj = SceneObject{this};
 

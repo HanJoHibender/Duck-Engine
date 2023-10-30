@@ -11,7 +11,7 @@ namespace DuckEngine {
     void SceneThread::run() {
 
         // Set maximum amount of updates on scene per second
-        const int maxUpdatesPerSecond = 120;
+        const int maxUpdatesPerSecond = 1000;
         const std::chrono::milliseconds maxUpdateTime(1000 / maxUpdatesPerSecond);
 
         auto lastUpdate = std::chrono::high_resolution_clock::now();
@@ -31,7 +31,7 @@ namespace DuckEngine {
                 m_Scene.OnUpdate(deltaTime);
             }
 
-            std::this_thread::sleep_for(std::chrono::milliseconds(1));
+           // std::this_thread::sleep_for(std::chrono::milliseconds(1));
         }
     }
 } // DuckEngine

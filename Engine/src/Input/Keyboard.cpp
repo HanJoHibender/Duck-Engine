@@ -17,7 +17,7 @@ namespace DuckEngine {
         // Get keybindings with the keycode and set the status of it
         auto keys = GetKeybindsOf(key);
         std::for_each(keys.begin(), keys.end(), [&](Keybind* item) {
-            item->SetPressed(action == GLFW_PRESS);
+            item->SetPressed(action == GLFW_PRESS || action == GLFW_REPEAT);
         });
     }
 

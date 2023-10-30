@@ -18,6 +18,18 @@ namespace DuckEngine {
         }
     }
 
+    void SceneObject::OnFixedUpdate(float dt) {
+
+        if(m_Scene == nullptr){
+            return;
+        }
+
+        // Update all components of this object
+        for (auto component : m_Components){
+            component.second->OnFixedUpdate(dt);
+        }
+    }
+
     void SceneObject::OnDestroy() {
         if(m_Scene == nullptr){
             return;
