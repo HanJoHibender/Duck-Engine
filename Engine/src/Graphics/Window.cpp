@@ -4,7 +4,6 @@
 
 #include "Window.h"
 #include "Event/WindowEvent.h"
-#include "Core/Threads/RenderThread.h"
 
 namespace DuckEngine {
     std::vector<Window*> Window::m_Windows = {};
@@ -33,6 +32,7 @@ namespace DuckEngine {
         // Set window callbacks
         glfwSetKeyCallback(m_Window, key_callback);
         glfwSetCursorPosCallback(m_Window, cursor_position_callback);
+        glfwSetMouseButtonCallback(m_Window, mouse_button_callback);
         glfwSetWindowSizeCallback(m_Window, resize_callback);
 
         // Sets window size limits, prevents crashing when trying to resize window into negative
@@ -45,9 +45,8 @@ namespace DuckEngine {
         // Set VSync 1/0
         glfwSwapInterval(1);
 
-        // Set the keyboard and mouse of this window
-        keyboard = std::make_shared<Keyboard>(m_Window);
-        mouse = std::make_shared<Mouse>(m_Window);
+        // Set the input of this window
+        input = std::make_shared<Input>(m_Window);
 
         // Push this window instance into the array of windows
         m_Windows.push_back(this);
@@ -81,11 +80,15 @@ namespace DuckEngine {
     }
     // Window callback functions
     void Window::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
-        GetWindowOf(window)->keyboard->OnKeyCallback(key, scancode, action, mods);
+        GetWindowOf(window)->input->OnKeyCallback(key, scancode, action, mods);
+    }
+
+    void Window::mouse_button_callback(GLFWwindow* window, int button, int action, int mods) {
+        GetWindowOf(window)->input->mouse_button_callback(button, action, mods);
     }
 
     void Window::cursor_position_callback(GLFWwindow* window, double xpos, double ypos) {
-        GetWindowOf(window)->mouse->cursor_position_callback(xpos, ypos);
+        GetWindowOf(window)->input->cursor_position_callback(xpos, ypos);
     }
 
     void Window::resize_callback(GLFWwindow* window, int w, int h) {

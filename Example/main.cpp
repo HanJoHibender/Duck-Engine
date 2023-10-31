@@ -4,6 +4,7 @@
 
 #include "Engine.h"
 #include "Components/FpsComponent.h"
+#include "Components/CameraMovementComponent.h"
 
 using namespace DuckEngine;
 
@@ -19,6 +20,8 @@ int main(){
     auto& camera = scene->CreateCamera();
     Transform* cameraTransform = ((Transform*)camera.GetComponent<Transform>());
     cameraTransform->Position += cameraTransform->FORWARD() * 0.1f;
+
+    camera.AddComponent<CameraMovementComponent>();
 
     SceneObject vobj = scene->CreateObject();
     vobj.AddComponent<Renderable3D>();

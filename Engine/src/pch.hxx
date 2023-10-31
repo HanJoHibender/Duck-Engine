@@ -22,6 +22,7 @@
 #include <fstream>
 #include <filesystem>
 #include <thread>
+#include <future>
 #include <typeindex>
 
 //others

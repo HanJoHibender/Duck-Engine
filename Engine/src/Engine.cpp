@@ -3,9 +3,9 @@
 //
 
 #include "Engine.h"
-#include "Core/Threads/RenderThread.h"
 
 namespace DuckEngine {
+
     void Engine::Setup() {
         //todo
     }
@@ -20,10 +20,18 @@ namespace DuckEngine {
 
             for(auto wind : windows){
                 while(wind->IsRunning){
-                    RenderThread thread = RenderThread(*wind);
-                    //TODO: run() so it doesnt make new thread but uses this current thread. Not good.
-                    thread.run();
+
+                    wind->SwapBuffers();
+                    wind->RenderBackground();
+
+                    // Loop through scenes of the window and render them
+                    for(const std::shared_ptr<Scene>& scene : wind->scenes){
+                        scene->Render();
+                    }
+
+                    Executor::mainThreadExecutor.Execute();
                 }
+                wind->Destroy();
             }
             if(windows.empty()){
                 break;

@@ -8,6 +8,7 @@
 #include "pch.hxx"
 
 #include "Core/Threads/SceneThread.h"
+#include "Core/Threads/Executor.h"
 
 #include "Graphics/Window.h"
 #include "Event/WindowEvent.h"
@@ -25,6 +26,7 @@ namespace DuckEngine {
 
     class Engine {
     public:
+
         static void Setup();
 
         // Starts the engine. returns only when program exited

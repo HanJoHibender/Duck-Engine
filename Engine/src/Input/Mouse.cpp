@@ -13,12 +13,26 @@ namespace DuckEngine {
         return {x, y};
     }
 
-    void Mouse::cursor_position_callback(double xpos, double ypos) {
-            x = xpos;
-            y = ypos;
+    void Mouse::SetCursorMode(int cursor_mode) {
+
+        if(GetCursorMode() == cursor_mode){
+            return;
+        }
+
+        // Execite glfwSetInputMode on the main
+        Executor::mainThreadExecutor.Submit(glfwSetInputMode, m_Window, GLFW_CURSOR, cursor_mode);
+    }
+
+    int Mouse::GetCursorMode() const {
+        return glfwGetInputMode(m_Window, GLFW_CURSOR);
     }
 
     bool Mouse::IsPressing(int keycode) const {
         return glfwGetKey(m_Window, keycode);
+    }
+
+    void Mouse::SetPosition(double xpos, double ypos) {
+            x = xpos;
+            y = ypos;
     }
 } // DuckEngine

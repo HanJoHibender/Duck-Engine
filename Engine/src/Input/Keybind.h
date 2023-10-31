@@ -18,6 +18,8 @@ namespace DuckEngine {
 
         void SetPressed(bool value);
 
+        virtual void OnPress(){}
+
         bool IsPressed();
     private:
         bool m_Pressed = false;
