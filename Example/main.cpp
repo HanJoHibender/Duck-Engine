@@ -25,7 +25,6 @@ int main(){
 
     (FpsComponent*)vobj.AddComponent<FpsComponent>();
 
-
     Engine::Start();
 
     return 0;

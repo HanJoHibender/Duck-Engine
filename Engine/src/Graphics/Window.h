@@ -8,6 +8,7 @@
 #include "pch.hxx"
 #include "Input/Keyboard.h"
 #include "RenderStack.h"
+#include "Input/Mouse.h"
 
 namespace DuckEngine {
 
@@ -30,6 +31,8 @@ namespace DuckEngine {
         glm::vec2 GetWindowSize();
 
         std::shared_ptr<Keyboard> keyboard;
+        std::shared_ptr<Mouse> mouse;
+
         Color background_color{};
         // TODO probably should make private and add getter and setter or something. and a check so ther cant be multiple same
         std::vector<std::shared_ptr<Scene>> scenes{};
@@ -49,6 +52,7 @@ namespace DuckEngine {
 
 
         static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
+        static void cursor_position_callback(GLFWwindow* window, double xpos, double ypos);
         static void resize_callback(GLFWwindow* window, int w, int h);
     private:
         GLFWwindow* m_Window;
