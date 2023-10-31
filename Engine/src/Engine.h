@@ -25,7 +25,10 @@ namespace DuckEngine {
 
     class Engine {
     public:
-        void Setup();
+        static void Setup();
+
+        // Starts the engine. returns only when program exited
+        static void Start();
     };
 
 } // DuckEngine

@@ -4,6 +4,7 @@
 
 #include "Window.h"
 #include "Event/WindowEvent.h"
+#include "Core/Threads/RenderThread.h"
 
 namespace DuckEngine {
     std::vector<Window*> Window::m_Windows = {};
@@ -53,6 +54,9 @@ namespace DuckEngine {
         IsRunning = true;
 
         m_WindowSize = {width, height};
+
+        // Set the background color
+        background_color = Color();
     }
 
     // Swap the front and back buffers, process events and update the IsRunning flag

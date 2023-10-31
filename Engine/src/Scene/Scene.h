@@ -17,7 +17,9 @@ namespace DuckEngine {
 
     class Scene {
     public:
+        // Use CreateScene instead
         explicit Scene(Window& window);
+        static std::shared_ptr<Scene> CreateScene(Window& window);
 
         // Creates sceneobject with Transform componnt
         SceneObject CreateObject();
@@ -42,7 +44,7 @@ namespace DuckEngine {
         // TODO make private?
         Window& window;
         RenderStack renderstack;
-        DuckEngine::Thread* scenethread;
+        DuckEngine::Thread* scenethread{};
 
         std::vector<Camera*> scenecameras{};
         std::vector<SceneObject*> sceneobjects{};

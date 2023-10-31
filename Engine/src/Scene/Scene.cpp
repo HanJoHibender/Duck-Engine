@@ -9,9 +9,17 @@
 #include "Core/Threads/SceneThread.h"
 
 namespace DuckEngine {
-    Scene::Scene(Window& window) : window(window) {
-        scenethread = new SceneThread(*this);
-        scenethread->Start();
+
+    Scene::Scene(Window& window) : window(window){
+    }
+
+    std::shared_ptr<Scene> Scene::CreateScene(Window& window) {
+
+        std::shared_ptr<Scene> r = std::make_shared<Scene>(window);
+        window.scenes.push_back(r);
+        r->scenethread = new SceneThread(*r);
+
+        return r;
     }
 
     void Scene::AddObject(SceneObject* sceneObject) {

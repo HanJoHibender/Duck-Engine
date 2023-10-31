@@ -11,19 +11,25 @@ namespace DuckEngine {
     void SceneThread::run() {
 
         // Set maximum amount of updates on scene per second
-        const int maxUpdatesPerSecond = 1000;
+        const int maxUpdatesPerSecond = 120;
         const std::chrono::milliseconds maxUpdateTime(1000 / maxUpdatesPerSecond);
+        // ((DESIRED_FPS)60/1000)==16.66
+        const std::chrono::milliseconds maxFixedUpdateTime(1000 / 60);
 
         auto lastUpdate = std::chrono::high_resolution_clock::now();
-        float deltaTime = 0.0f;
+        auto lastFixedUpdate = std::chrono::high_resolution_clock::now();
+        float deltaTime, fixedDeltaTime;
 
         // Exits the loop when scene gets disabled
         while (m_Scene.IsEnabled){
             // Calculate deltatime
             auto now = std::chrono::high_resolution_clock::now();
             std::chrono::duration<float> elapsed = now - lastUpdate;
+            std::chrono::duration<float> elapsedFixed = now - lastFixedUpdate;
             deltaTime = elapsed.count();
+            fixedDeltaTime = elapsedFixed.count();
 
+            // Check if enough time has been since last time updated so it caps into maxUpdatesPerSecond
             if (elapsed >= maxUpdateTime) {
                 lastUpdate = now;
 
@@ -31,7 +37,13 @@ namespace DuckEngine {
                 m_Scene.OnUpdate(deltaTime);
             }
 
-           // std::this_thread::sleep_for(std::chrono::milliseconds(1));
+            // Check if enough time has been since last fixedupdate.
+            if (elapsedFixed >= maxFixedUpdateTime) {
+                lastFixedUpdate = now;
+
+                // Update the scene
+                m_Scene.OnFixedUpdate(fixedDeltaTime);
+            }
         }
     }
 } // DuckEngine

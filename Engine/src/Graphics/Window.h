@@ -11,6 +11,8 @@
 
 namespace DuckEngine {
 
+    class Scene;
+
     class Window {
     public:
         Window(uint32_t width, uint32_t height, const char* title);
@@ -29,6 +31,8 @@ namespace DuckEngine {
 
         std::shared_ptr<Keyboard> keyboard;
         Color background_color{};
+        // TODO probably should make private and add getter and setter or something. and a check so ther cant be multiple same
+        std::vector<std::shared_ptr<Scene>> scenes{};
 
         static std::vector<Window*> WindowInstances(){
             return m_Windows;
