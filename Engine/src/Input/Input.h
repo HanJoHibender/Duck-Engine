@@ -24,6 +24,8 @@ namespace DuckEngine {
         std::vector<Keybind*> GetKeybinds();
         std::vector<Keybind*> GetKeybindsOf(int keycode);
 
+        void Update();
+
         void OnKeyCallback(int key, int scancode, int action, int mods);
         void mouse_button_callback(int button, int action, int mods);
         void cursor_position_callback(double xpos, double ypos);

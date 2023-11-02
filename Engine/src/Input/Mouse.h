@@ -14,6 +14,7 @@ namespace DuckEngine {
         explicit Mouse(GLFWwindow* window);
 
         glm::vec2 GetPosition() const;
+        glm::vec2 GetVelocity() const;
 
         bool IsPressing(int keycode) const;
 
@@ -21,10 +22,15 @@ namespace DuckEngine {
         void SetCursorMode(int cursor_mode);
         int GetCursorMode() const;
 
+        // Gets called from Input
+        void Update();
+
         void SetPosition(double xpos, double ypos);
     private:
         GLFWwindow* m_Window;
-        double x = 0, y = 0;
+        glm::vec2 position = glm::vec2(0.f, 0.f);
+        glm::vec2 velocity = glm::vec2(0.f, 0.f);
+        glm::vec2 prevpos = glm::vec2(0.f, 0.f);
     };
 
 } // DuckEngine

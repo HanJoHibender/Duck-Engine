@@ -11,7 +11,7 @@ namespace DuckEngine {
         auto Quaternion = GetQuat();
         // Compute the forward direction vector using quaternion rotation
         glm::vec3 forward = glm::vec3(-(2 * (Quaternion.x * Quaternion.z + Quaternion.w * Quaternion.y)),
-                                      0.f,
+                                      glm::radians(Rotation.x),
                                       1 - 2 * (Quaternion.x * Quaternion.x + Quaternion.y * Quaternion.y));
         return forward;
     }

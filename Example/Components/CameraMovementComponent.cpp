@@ -44,8 +44,17 @@ void CameraMovementComponent::OnFixedUpdate(float dt) {
     }
 
     if(m_MouseKeyRight->IsPressed()){
-
         input->mouse->SetCursorMode(GLFW_CURSOR_DISABLED);
+
+        glm::vec2 mouseVelocity = input->mouse->GetVelocity();
+        auto* trans = (DuckEngine::Components::Transform*)GetObject()->GetComponent<DuckEngine::Components::Transform>();
+
+        trans->Rotation.x += mouseVelocity.y * rotationSpeed; // Pitch (up and down)
+        trans->Rotation.y += mouseVelocity.x * rotationSpeed; // Yaw (left and right)
+
+        const float maxPitchAngle = 80.0f;
+        trans->Rotation.x = glm::clamp(trans->Rotation.x, -maxPitchAngle, maxPitchAngle);
+
     }else{
         input->mouse->SetCursorMode(GLFW_CURSOR_NORMAL);
     }

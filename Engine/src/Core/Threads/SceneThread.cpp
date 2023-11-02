@@ -41,6 +41,9 @@ namespace DuckEngine {
             if (elapsedFixed >= maxFixedUpdateTime) {
                 lastFixedUpdate = now;
 
+                // Update mouse
+                m_Scene.window.input->Update();
+
                 // Update the scene
                 m_Scene.OnFixedUpdate(fixedDeltaTime);
             }

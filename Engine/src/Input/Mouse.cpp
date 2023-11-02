@@ -10,7 +10,11 @@ namespace DuckEngine {
     }
 
     glm::vec2 Mouse::GetPosition() const {
-        return {x, y};
+        return position;
+    }
+
+    glm::vec2 Mouse::GetVelocity() const {
+        return velocity;
     }
 
     void Mouse::SetCursorMode(int cursor_mode) {
@@ -19,7 +23,7 @@ namespace DuckEngine {
             return;
         }
 
-        // Execite glfwSetInputMode on the main
+        // Execite glfwSetInputMode on the main thread
         Executor::mainThreadExecutor.Submit(glfwSetInputMode, m_Window, GLFW_CURSOR, cursor_mode);
     }
 
@@ -32,7 +36,17 @@ namespace DuckEngine {
     }
 
     void Mouse::SetPosition(double xpos, double ypos) {
-            x = xpos;
-            y = ypos;
+            position.x = xpos;
+            position.y = ypos;
+    }
+
+    void Mouse::Update() {
+        // Calculate mouse velocity
+        velocity.x = position.x - prevpos.x;
+        velocity.y = position.y - prevpos.y;
+
+        // Store the current position as the previous position for the next frame
+        prevpos.x = position.x;
+        prevpos.y = position.y;
     }
 } // DuckEngine

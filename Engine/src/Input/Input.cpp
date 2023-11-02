@@ -31,6 +31,11 @@ namespace DuckEngine {
         return r;
     }
 
+    // This gets called 60 times a second from scenethread just before fixedupdate
+    void Input::Update() {
+        mouse->Update();
+    }
+
     void Input::OnKeyCallback(int key, int scancode, int action, int mods) {
         // Get keybindings with the keycode and set the status of it
         auto keys = GetKeybindsOf(key);
@@ -54,6 +59,7 @@ namespace DuckEngine {
             }
         });
     }
+
 
     void Input::cursor_position_callback(double xpos, double ypos) {
         mouse->SetPosition(xpos, ypos);

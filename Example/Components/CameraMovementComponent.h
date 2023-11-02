@@ -15,6 +15,7 @@ public:
     void OnFixedUpdate(float dt) override;
 
     float speed = 0.001f;
+    float rotationSpeed = 0.1f;
 private:
     DuckEngine::Keybind* m_KeyForward;
     DuckEngine::Keybind* m_KeyBackward;
