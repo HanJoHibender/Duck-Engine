@@ -1,0 +1,3 @@
+[submodule "Engine/vendor/assimp"]
+	path = Engine/vendor/assimp
+	url = https://github.com/assimp/assimp.git

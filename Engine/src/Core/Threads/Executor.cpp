@@ -7,6 +7,7 @@
 namespace DuckEngine {
 
     Executor Executor::mainThreadExecutor = Executor();
+    Executor Executor::sceneThreadExecutor = Executor();
 
     void Executor::Execute() {
         std::function<void()> task;

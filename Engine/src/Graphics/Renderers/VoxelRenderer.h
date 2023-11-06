@@ -8,7 +8,7 @@
 namespace DuckEngine {
 
     class VoxelRenderer {
-
+    // TODO
     };
 
 } // DuckEngine

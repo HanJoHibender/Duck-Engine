@@ -20,6 +20,7 @@ namespace DuckEngine {
         void Execute();
 
         static Executor mainThreadExecutor;
+        static Executor sceneThreadExecutor;
     private:
         std::vector<std::function<void()>> taskQueue;
         std::mutex queueMutex;

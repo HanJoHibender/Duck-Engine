@@ -47,6 +47,8 @@ namespace DuckEngine {
                 // Update the scene
                 m_Scene.OnFixedUpdate(fixedDeltaTime);
             }
+
+            Executor::sceneThreadExecutor.Execute();
         }
     }
 } // DuckEngine

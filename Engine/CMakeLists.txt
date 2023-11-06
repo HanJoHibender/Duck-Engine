@@ -17,6 +17,7 @@ add_subdirectory("vendor/glfw")
 add_subdirectory("vendor/glm")
 add_subdirectory("vendor/glad")
 add_subdirectory("vendor/stb")
+add_subdirectory("vendor/assimp")
 
 find_package(OpenGL REQUIRED)
 include_directories(${OPENGL_INCLUDE_DIRS})
@@ -26,6 +27,6 @@ add_library(DuckEngine ${src_files})
 
 target_precompile_headers(DuckEngine PRIVATE src/pch.cxx src/pch.hxx)
 target_link_libraries(DuckEngine PUBLIC glfw ${GLFW_LIBRARIES} ${OPENGL_LIBRARIES}
-        glm glad)
+        glm glad assimp)
 target_include_directories(DuckEngine PUBLIC "vendor" PUBLIC "src")
 set_target_properties(DuckEngine PROPERTIES LINKER_LANGUAGE CXX)

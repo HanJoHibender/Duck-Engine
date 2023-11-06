@@ -8,7 +8,6 @@
 namespace DuckEngine {
 
     class MeshLoader {
-
     };
 
 } // DuckEngine
