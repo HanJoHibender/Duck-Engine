@@ -1,14 +1,11 @@
 [package]
 name = "duck_core"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
-
-winit = "0.26"
-vulkano = "0.30.0"
-vulkano-win = "0.30.0"
-vulkano-shaders = "0.30.0"
-bytemuck = { version = "1.7", features = ["derive", "extern_crate_std", "min_const_generics"] }
+bevy = { workspace = true }
+duck_world = { path = "../duck_world" }
+duck_render = { path = "../duck_render" }
+duck_input = { path = "../duck_input" }
+duck_ui = { path = "../duck_ui" }
